@@ -20,9 +20,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // cors
-if (process.env.NODE_ENV === "development") {
-    app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
+var whitelist = ['http://localhost:3000', 'https://digiviet.xyz']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }
+
+app.use(cors(corsOptions));
 
 // routes middleware
 app.use("/api", authRoutes);
