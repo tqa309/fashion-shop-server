@@ -16,7 +16,6 @@ exports.login = async (req, res) => {
             });
         }
 
-        // authenticate
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
             return res.status(400).json({
@@ -24,7 +23,6 @@ exports.login = async (req, res) => {
             });
         }
 
-        // generate a token and send to client
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
             expiresIn: "1d",
         });

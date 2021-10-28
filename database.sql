@@ -128,3 +128,59 @@ create table order_items(
 
 alter table product add foreign key (id) references order_items(product_id); 
 
+
+
+create table vote(
+    id int generated always as identity primary key,
+    product_id int unique references product(id),
+    value smallint,
+    count smallint
+);
+
+create table review(
+    id int generated always as identity primary key,
+    product_id int unique references product(id),
+    name varchar(50),
+    avatar text,
+    description text,
+    punctuation smallint
+);
+
+create table punctuation_review(
+    id int generated always as identity primary key,
+    product_id int unique references product(id),
+    punctuation float,
+    count_options int
+);
+
+create table product_color(
+    id int generated always as identity primary key,
+    product_id int unique references product(id),
+    label varchar(20),
+    color varchar(10)
+);
+
+create table product_size(
+    id int generated always as identity primary key,
+    product_id int unique references product(id),
+    size varchar(10)
+);
+
+create table product_type(
+    id int generated always as identity primary key,
+    product_id int unique references product(id),
+    name varchar(100),
+    count int
+);
+
+alter table product add column discount smallint;
+alter table product add column quantity smallint;
+alter table product add column category varchar(50);
+alter table product add column current_price int;
+alter table product add column images text;
+
+insert into  vote(product_id, value, count) values (6, 1, 1);
+insert into  vote(product_id, value, count) values (6, 2, 10);
+insert into  vote(product_id, value, count) values (6, 3, 10);
+insert into  vote(product_id, value, count) values (6, 4, 20);
+insert into  vote(product_id, value, count) values (6, 5, 40);

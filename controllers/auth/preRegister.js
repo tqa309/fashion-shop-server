@@ -25,13 +25,13 @@ exports.preRegister = async (req, res) => {
             const emailData = {
                 from: process.env.EMAIL_FROM,
                 to: email,
-                subject: `Kích hoạt tài khoản`,
+                subject: `[QA-SHOP] Kích hoạt tài khoản`,
                 html: `
                 <p>Hãy nhấn vào link bên dưới để xác nhận email:</p>
-                <p>${process.env.CLIENT_URL}/auth/account/activate/${token}</p>
+                <p>${process.env.CLIENT_URL}/kich-hoat-tai-khoan?token=${token}</p>
                 <hr />
                 <p>Email chứa thông tin quan trọng, vui lòng không để lộ cho người khác.</p>
-                <p>https://tranquocanh.com</p>
+                <p>https://shop.tranquocanh.com</p>
             `,
             };
     
@@ -42,6 +42,7 @@ exports.preRegister = async (req, res) => {
             });
         }
     } catch (error) {
-        return res.status(402).json(error);
+        console.log(error)
+        return res.status(400).json(error);
     }
 };

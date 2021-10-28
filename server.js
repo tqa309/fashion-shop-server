@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const userAddressRoutes = require("./routes/userAddress");
+const productRoutes = require("./routes/product");
 
 // app
 const app = express();
@@ -28,6 +29,7 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", userAddressRoutes);
+app.use("/api", productRoutes);
 
 // requireSignin error handler
 app.use(function (err, req, res, next) {

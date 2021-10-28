@@ -28,13 +28,13 @@ exports.forgotPassword = async (req, res) => {
         const emailData = {
             from: process.env.EMAIL_FROM,
             to: email,
-            subject: `Lấy lại mật khẩu`,
+            subject: `[QA-SHOP] Lấy lại mật khẩu`,
             html: `
         <p>Hãy nhấn vào link bên dưới để lấy lại mật khẩu:</p>
-        <p>${process.env.CLIENT_URL}/auth/password/reset/${token}</p>
+        <p>${process.env.CLIENT_URL}/lay-lai-mat-khau?token=${token}</p>
         <hr />
         <p>Email chứa thông tin quan trọng, vui lòng không để lộ cho người khác.</p>
-        <p>https://tranquocanh.com</p>
+        <p>https://shop.tranquocanh.com</p>
     `,
         };
 

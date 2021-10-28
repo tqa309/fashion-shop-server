@@ -28,8 +28,22 @@ exports.register = (req, res) => {
                         created_at: new Date(),
                     });
 
-                    return res.status(200).json({
-                        message: "Kích hoạt tài khoản thành công!",
+                    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+                        expiresIn: "1d",
+                    });
+                    
+            
+                    res.cookie("token", token, { expiresIn: "1d" });
+
+                    const user = await models.User.findOne({
+                        where: { email: email },
+                    });
+
+                    const { id, userName, role } = user;
+            
+                    return res.status(201).json({
+                        token,
+                        user: { id, name: userName, email, role },
                     });
                 }
             );
