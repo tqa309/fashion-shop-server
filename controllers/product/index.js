@@ -96,6 +96,7 @@ exports.getAll = async (req, res) => {
             p.colors = p.colors.split(", ");
             p.sizes = p.sizes.split(", ");
             p.punctuationReview = punctuationReview;
+            p.images = [p.images];
             p.reviews = reviews;
             return p;
         });
@@ -122,6 +123,7 @@ exports.getById = async (req, res) => {
         product.sizes = product.sizes.split(", ");
         product.punctuationReview = punctuationReview;
         product.reviews = reviews;
+        product.images = [product.images];
 
         return res.status(200).json(product);
     } catch (error) {
