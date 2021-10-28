@@ -84,6 +84,13 @@ const punctuationReview = {
     ],
 };
 
+const priceFormat = (price) => {
+    return price.toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    });
+};
+
 exports.getAll = async (req, res) => {
     try {
         const productQuery = "SELECT * FROM PRODUCT";
@@ -98,6 +105,8 @@ exports.getAll = async (req, res) => {
             p.punctuationReview = punctuationReview;
             p.images = [p.images];
             p.reviews = reviews;
+            p.currentPrice = priceFormat(p.current_price);
+            p.price = priceFormat(p.price);
             return p;
         });
 
@@ -124,6 +133,9 @@ exports.getById = async (req, res) => {
         product.punctuationReview = punctuationReview;
         product.reviews = reviews;
         product.images = [product.images];
+        product.currentPrice = priceFormat(product.current_price);
+        delete product.current_price;
+        product.price = priceFormat(product.price);
 
         return res.status(200).json(product);
     } catch (error) {
