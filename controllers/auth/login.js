@@ -1,25 +1,21 @@
-const models = require("../../models");
-const bcrypt = require("bcryptjs");
+const pool = require("../../databse");
 const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await models.User.findOne({
-            where: { email: email },
-        });
+        const userQuery = `SELECT * FROM "user" WHERE email='${email}' AND password='${password}' LIMIT 1;`;
+
+        console.log(userQuery)
+
+        const queryData = await pool.query(userQuery)
+        
+        const user = queryData.rows[0]
 
         if (!user) {
             return res.status(400).json({
-                error: "Email chưa được đăng ký!",
-            });
-        }
-
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
-        if (!isPasswordCorrect) {
-            return res.status(400).json({
-                error: "Email và mật khẩu không trùng khớp",
+                error: "Email hoặc mật khẩu không đúng!",
             });
         }
 
@@ -32,9 +28,10 @@ exports.login = async (req, res) => {
 
         return res.status(201).json({
             token,
-            user: { id, name, email, role },
+            user: { id, name, role }
         });
     } catch (error) {
-        return res.status(402).json(error);
+        console.log(error)
+        return res.status(400).send(error);
     }
 };

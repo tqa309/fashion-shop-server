@@ -31,7 +31,7 @@ var corsOptions = {
   }
 }
 
-app.use(cors(corsOptions));
+ app.use(cors(corsOptions));
 
 // routes middleware
 app.use("/api", authRoutes);

@@ -28,8 +28,6 @@ router.post(
 router.post("/auth/register", register);
 
 router.post("/auth/login",
-    userLoginValidator,
-    runValidation,
     login
 );
 

@@ -184,3 +184,6 @@ insert into  vote(product_id, value, count) values (6, 2, 10);
 insert into  vote(product_id, value, count) values (6, 3, 10);
 insert into  vote(product_id, value, count) values (6, 4, 20);
 insert into  vote(product_id, value, count) values (6, 5, 40);
+
+
+update "user" set password = '123456' where email='tranquocanh.3009@gmail.com'
